@@ -1,0 +1,65 @@
+##---------------------------------------------------------------------------------------------------------------------------##
+###############################################################################################################################
+##---------------------------------------------------------------------------------------------------------------------------##
+##
+## Abstract:
+##   Shell initialization script ~/.bash_common provides a common environment for Bourne-Again Shell (Bash) scripts.
+##
+## Details:
+## - If the BASH_ENV environment variable is set accordingly ~/.bash_common is automatically interpreted whenever Bash is
+##   invoked as a non-interactive shell. We think, however, that employing the BASH_ENV mechanism is a bad idea since this
+##   seriously decreases the reliability of Bash scripts.
+## - Help messages associated with subsequently defined shell functions are based on the following convention: An argument of
+##   the form VALUE indicates that a value must be passed to the function. An argument of the form &VALUE, however, indicates
+##   that the name of a variable storing VALUE must be passed.
+##
+## References:
+## - bash(1) man page
+##   --> $ man bash
+## - Advanced Bash-Scripting Guide
+##   --> http://www.tldp.org/LDP/abs/abs-guide.pdf
+##
+## Author:
+##   Michael H. Pock || MHP || mhp77@gmx.at
+##
+## © Copyleft 2016 MHP
+##
+##---------------------------------------------------------------------------------------------------------------------------##
+###############################################################################################################################
+##---------------------------------------------------------------------------------------------------------------------------##
+
+
+## ********** Options **********
+
+set -o errexit
+set -o pipefail
+
+shopt -s extglob
+
+##---------------------------------------------------------------------------------------------------------------------------##
+
+
+## ********** Variables **********
+
+declare -ir stat_incorrect_usage=10
+declare -ir stat_user_interruption=11
+
+##---------------------------------------------------------------------------------------------------------------------------##
+
+
+## ********** Functions **********
+
+function filename_to_dirname {
+  ## Convert the filename stored in &FILENAME to an explicit directory name.
+  if [ ${#} -eq 1 ] && declare -p -- "${1}" &>/dev/null; then
+    eval ${1}='${!1:-.}/' ${1}='${!1/%\/\//\/}'
+  else
+    echo "${BASH_SOURCE[1]}: line ${BASH_LINENO}: ${FUNCNAME}: usage: ${FUNCNAME} &FILENAME" >&2
+    return ${stat_incorrect_usage}
+  fi
+}
+
+##---------------------------------------------------------------------------------------------------------------------------##
+
+
+## LocalWords: ENV

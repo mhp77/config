@@ -1,0 +1,52 @@
+##---------------------------------------------------------------------------------------------------------------------------##
+###############################################################################################################################
+##---------------------------------------------------------------------------------------------------------------------------##
+##
+## Abstract:
+##   Configuration file ~/.unburden-home-dir.list instructs the unburden-home-dir utility what files and directories to
+## unburden the home directory from.
+##
+## Details:
+##   None.
+##
+## References:
+## - Unburden Your Home Directory
+##   --> https://github.com/xtaran/unburden-home-dir#readme
+##
+## Author:
+##   Michael H. Pock || MHP || mhp77@gmx.at
+##
+## © Copyleft 2016 MHP
+##
+##---------------------------------------------------------------------------------------------------------------------------##
+###############################################################################################################################
+##---------------------------------------------------------------------------------------------------------------------------##
+
+m D .cache                              cache
+
+m D .thumbnails                         thumbnails
+
+m D .fontconfig                         fontconfig
+
+r D .local/share/Trash                  local!share!Trash
+
+m d .mozilla/firefox/*/Cache            mozilla!firefox!%1!Cache
+m d .mozilla/firefox/*/startupCache     mozilla!firefox!%1!startupCache
+m d .mozilla/firefox/*/thumbnails       mozilla!firefox!%1!thumbnails
+
+m d .icedove/*/Cache                    icedove!%1!Cache
+m d .icedove/*/startupCache             icedove!%1!startupCache
+
+m d .thunderbird/*/Cache                thunderbird!%1!Cache
+m d .thunderbird/*/startupCache         thunderbird!%1!startupCache
+
+m f .aptitude/cache                     aptitude!cache
+
+##---------------------------------------------------------------------------------------------------------------------------##
+
+
+## Local Variables:
+## conf-assignment-column: 40
+## End:
+
+## LocalWords: dir readme
